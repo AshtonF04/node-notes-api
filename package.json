@@ -1,0 +1,25 @@
+{
+  "name": "notes-api",
+  "version": "1.0.0",
+  "description": "A simple CRUD api for accessing a local notes database.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AshtonF04/node-notes-api.git"
+  },
+  "author": "Ashton Franklin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AshtonF04/node-notes-api/issues"
+  },
+  "homepage": "https://github.com/AshtonF04/node-notes-api#readme",
+  "type": "module",
+  "dependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
