@@ -23,12 +23,22 @@ const server = http.createServer((req, res) => {
         const note = getNoteById(notes, parseInt(id))
         sendJSONResponse(res, 200, note)
     }
-
     // Create a new note
-
+    else if (req.url === '/notes' && req.method === 'POST'){
+        res.end('Creating new note')
+    }
     // Update a note
-
+    else if (req.url.startsWith('/notes') && req.method === 'PUT'){
+        res.end('Updating existing note')
+    }
     // Delete a note
+    else if (req.url.startsWith('/notes') && req.method === 'DELETE'){
+        res.end('Deleting note')
+    }
+    // Error, endpoint not found
+    else {
+        sendJSONResponse(res, 404, {'Error': 'API endpoint not found.'})
+    }
 });
 
 // Start server on port 3000

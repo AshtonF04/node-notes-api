@@ -5,9 +5,11 @@ This project demonstrates how to build a CRUD API from scratch without Express o
 
 ---
 
-## 🚀 Features
+## 🚀 Endpoints (current)
 - **GET /notes** → Fetch all notes
-- **GET /notes/:id** → Fetch a single note by ID
+- **GET /notes:ID** → Fetch a single note by ID (temporary format)
+
+Planned (not yet implemented):
 - **POST /notes** → Create a new note
 - **PUT /notes/:id** → Update an existing note
 - **DELETE /notes/:id** → Delete a note
@@ -32,11 +34,14 @@ git clone https://github.com/your-username/notes-api.git
 # Navigate into project directory
 cd notes-api
 
-# Install dependencies (none required here, but for future improvements)
+# Install dependencies
 npm install
 
 # Start the server
-node server.js
+npm start
+
+# Or run with auto-reload during development
+npm run dev
 ```
 
-The server will run on https://localhost:3000
+The server will run on http://localhost:3000
