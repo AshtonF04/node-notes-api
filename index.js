@@ -5,6 +5,7 @@ import { notes } from './data.js';
 import { sendJSONResponse } from './util/sendJSONResponse.js';
 import { getNoteById } from './util/getNoteById.js';
 import { createNote } from './util/createNote.js';
+import { updateNote } from './util/updateNote.js';
 
 // Setup PORT
 const PORT = 3000;
@@ -45,7 +46,24 @@ const server = http.createServer((req, res) => {
     }
     // Update a note
     else if (req.url.startsWith('/notes') && req.method === 'PUT'){
-        res.end('Updating existing note')
+        // Get the note id from the url
+        const id = req.url.split(':').pop()
+
+        // Get the request body as the data stream arrives in chunks and append to the requestBody string
+        let requestBody = '';
+        req.on('data', (chunk) => {
+            requestBody += chunk;
+        });
+        // When the request body is fully received, parse it as JSON and update the note
+        req.on('end', () => {
+            try {
+                const updatedNoteText = JSON.parse(requestBody).text;
+                const note = updateNote(notes, id, updatedNoteText);
+                sendJSONResponse(res, 200, note);
+            } catch (error) {
+                sendJSONResponse(res, 400, {'Error': 'Invalid request body.', 'message': error.message})
+            }
+        });
     }
     // Delete a note
     else if (req.url.startsWith('/notes') && req.method === 'DELETE'){
