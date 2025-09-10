@@ -34,9 +34,13 @@ const server = http.createServer((req, res) => {
 
         // When the request body is fully received, parse it as JSON and create a new note
         req.on('end', () => {
-            const newNoteText = JSON.parse(requestBody).text;
-            const note = createNote(notes, newNoteText);
-            sendJSONResponse(res, 201, note);
+            try {
+                const newNoteText = JSON.parse(requestBody).text;
+                const note = createNote(notes, newNoteText);
+                sendJSONResponse(res, 201, note);
+            } catch (error) {
+                sendJSONResponse(res, 400, {'Error': 'Invalid request body.', 'message': error.message})
+            }
         });
     }
     // Update a note
