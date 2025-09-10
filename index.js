@@ -6,6 +6,7 @@ import { sendJSONResponse } from './util/sendJSONResponse.js';
 import { getNoteById } from './util/getNoteById.js';
 import { createNote } from './util/createNote.js';
 import { updateNote } from './util/updateNote.js';
+import { deleteNote } from './util/deleteNote.js';
 
 // Setup PORT
 const PORT = 3000;
@@ -67,7 +68,15 @@ const server = http.createServer((req, res) => {
     }
     // Delete a note
     else if (req.url.startsWith('/notes') && req.method === 'DELETE'){
-        res.end('Deleting note')
+        try{
+            // Get the note id from the url
+            const id = req.url.split(':').pop()
+            const note = deleteNote(notes, id);
+            sendJSONResponse(res, 200, note);
+        } catch (error) {
+            sendJSONResponse(res, 400, {'Error': 'Invalid request body.', 'message': error.message})
+        }
+
     }
     // Error, endpoint not found
     else {
