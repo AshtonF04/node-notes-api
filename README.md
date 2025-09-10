@@ -8,8 +8,6 @@ This project demonstrates how to build a CRUD API from scratch without Express o
 ## 🚀 Endpoints (current)
 - **GET /notes** → Fetch all notes
 - **GET /notes:ID** → Fetch a single note by ID (temporary format)
-
-Planned (not yet implemented):
 - **POST /notes** → Create a new note
 - **PUT /notes/:id** → Update an existing note
 - **DELETE /notes/:id** → Delete a note
