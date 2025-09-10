@@ -4,6 +4,7 @@ import { notes } from './data.js';
 // Import util functions
 import { sendJSONResponse } from './util/sendJSONResponse.js';
 import { getNoteById } from './util/getNoteById.js';
+import { createNote } from './util/createNote.js';
 
 // Setup PORT
 const PORT = 3000;
@@ -20,12 +21,23 @@ const server = http.createServer((req, res) => {
     // Get Single Note
     else if (req.url.startsWith('/notes') && req.method === 'GET'){
         const id = req.url.split(':').pop()
-        const note = getNoteById(notes, parseInt(id))
+        const note = getNoteById(notes, id)
         sendJSONResponse(res, 200, note)
     }
     // Create a new note
     else if (req.url === '/notes' && req.method === 'POST'){
-        res.end('Creating new note')
+        // Get the request body as the data stream arrives in chunks and append to the requestBody string
+        let requestBody = '';
+        req.on('data', (chunk) => {
+            requestBody += chunk;
+        });
+
+        // When the request body is fully received, parse it as JSON and create a new note
+        req.on('end', () => {
+            const newNoteText = JSON.parse(requestBody).text;
+            const note = createNote(notes, newNoteText);
+            sendJSONResponse(res, 201, note);
+        });
     }
     // Update a note
     else if (req.url.startsWith('/notes') && req.method === 'PUT'){
