@@ -27,7 +27,7 @@ Clone the repo and start the server:
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/notes-api.git
+git clone https://github.com/AshtonF04/notes-api.git
 
 # Navigate into project directory
 cd notes-api
